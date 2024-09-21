@@ -1,0 +1,76 @@
+﻿@model IEnumerable<sp23Team09FinalProject.Models.Application>
+
+@{
+    ViewData["Title"] = "Applications";
+}
+
+<h1>Interviews</h1>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Student.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Position.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Position.Company.CompanyName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SubmissionDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Room)
+            </th>
+            <th>Interviewer</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+            @if (item.Status == Status.AcceptedforInterview)
+            {
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Student.FirstName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Position.Title)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Position.Company.CompanyName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Status)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SubmissionDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Date)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Room)
+                        </td>
+                        @if (item.Room != Rooms.NoRoom)
+                            {
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Position.Interviewer.FirstName)
+                            </td>
+                            }
+
+                        </tr>
+                }
+            }
+        </tbody>
+    </table>

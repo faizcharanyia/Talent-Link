@@ -1,0 +1,86 @@
+@model sp23Team09FinalProject.Models.Position
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Position</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PositionType)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PositionType)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Company.CompanyName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Company.CompanyName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Location)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Location)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Deadline)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Deadline)
+        </dd>
+    </dl>
+</div>
+<h5>Majors for this Position</h5>
+<table class="table table-bordered">
+    <tr>
+        <th>Major Name</th>
+    </tr>
+    @foreach (Major major in Model.Majors)
+    {
+        <tr>
+            <td>@major.MajorName</td>
+        </tr>
+    }
+</table>
+<h5>Industries for this Position</h5>
+<table class="table table-bordered">
+    <tr>
+        <th>Industry Name</th>
+    </tr>
+    @foreach (Industry industry in Model.Company.Industrys)
+    {
+        <tr>
+            <td>@industry.IndustryName</td>
+        </tr>
+    }
+</table>
+<div>
+    @if (User.Identity.IsAuthenticated)
+    {
+        @if (User.IsInRole("CSO") || User.IsInRole("Recruiter"))
+        {
+            <Text>
+            <a asp-action="Edit" asp-route-id="@Model?.PositionID">Edit</a> |
+            </Text>
+        }
+    }
+    <a asp-action="Index">Back to List</a>
+</div>

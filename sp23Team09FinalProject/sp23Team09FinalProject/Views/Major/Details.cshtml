@@ -1,0 +1,36 @@
+@model sp23Team09FinalProject.Models.Major
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Major</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.MajorName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.MajorName)
+        </dd>
+    </dl>
+</div>
+<h3>Positions for this Major</h3>
+<table class="table table-bordered">
+    <tr>
+        <th>Major Name</th>
+    </tr>
+    @foreach (Position position in Model.Positions)
+    {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => position.Title)</td>
+        </tr>
+    }
+</table>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.MajorID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

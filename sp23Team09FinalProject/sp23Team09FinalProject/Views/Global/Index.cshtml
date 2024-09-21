@@ -1,0 +1,30 @@
+@model IEnumerable<sp23Team09FinalProject.Models.Global>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Current Date and Time</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CurrDate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CurrDate)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

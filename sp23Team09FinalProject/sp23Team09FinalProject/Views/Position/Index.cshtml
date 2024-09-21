@@ -1,0 +1,91 @@
+@model IEnumerable<sp23Team09FinalProject.Models.Position>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<form asp-action="Index" asp-controller="Position" method="get">
+    <p class="form-group">
+        Search: <input name="SearchString" class="form-control" /><br />
+        <button type="submit" class="btn btn-primary">Search</button>
+        <a asp-action="DetailedSearch" class="btn btn-success">Detailed Search</a>
+        <a asp-action="Index" class="btn btn-danger">Show All</a>
+    </p>
+</form>
+
+@if (User.Identity.IsAuthenticated)
+{
+    @if (User.IsInRole("CSO") || User.IsInRole("Recruiter"))
+    {
+        <p>
+            <a asp-action="Create">Create New</a>
+        </p>
+    }
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PositionType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Company)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Location)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Deadline)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PositionType)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelitem => item.Company.CompanyName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Location)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Deadline)
+                    </td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@item.PositionID">Details</a>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            @if (User.IsInRole("CSO") || User.IsInRole("Recruiter"))
+                            {
+                                <Text>
+                                | <a asp-action="Edit" asp-route-id="@item.PositionID">Edit</a> |
+
+                                
+                                </Text>
+                            }
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+</table>

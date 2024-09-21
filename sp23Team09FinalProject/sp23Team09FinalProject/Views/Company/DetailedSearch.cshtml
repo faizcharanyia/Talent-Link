@@ -1,0 +1,45 @@
+﻿@model sp23Team09FinalProject.Models.SearchViewModel
+
+@{
+    ViewData["Title"] = "DetailedSearch";
+}
+
+<h1>DetailedSearch</h1>
+
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="DisplaySearchResult" method="get">
+            <div class="form-group">
+                <label asp-for="SearchCompany" class="control-label"></label>
+                <input asp-for="SearchCompany" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="SearchIndustry" class="control-label"></label>
+                <input asp-for="SearchIndustry" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="SearchType" class="control-label"></label>
+                <select asp-for="SearchType" asp-items="Html.GetEnumSelectList<PositionType>()" class="form-control">
+                    <option selected="selected" value="">All Types</option>
+                </select>
+                <span asp-validation-for="SearchType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SearchLocation" class="control-label"></label>
+                <input asp-for="SearchLocation" class="form-control" />
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Search</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+
+

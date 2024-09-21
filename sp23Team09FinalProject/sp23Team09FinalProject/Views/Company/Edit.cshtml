@@ -1,0 +1,60 @@
+@model sp23Team09FinalProject.Models.Company
+
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Edit</title>
+</head>
+<body>
+
+    <h4>Company</h4>
+    <hr />
+    @if (User.IsInRole("Recruiter"))
+    {
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CompanyName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CompanyName)
+        </dd>
+    }
+
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="CompanyID" />
+                @if (User.IsInRole("CSO"))
+                {
+                    <div class="form-group">
+                        <label asp-for="CompanyName" class="control-label"></label>
+                        <input asp-for="CompanyName" class="form-control" />
+                        <span asp-validation-for="CompanyName" class="text-danger"></span>
+                    </div>
+                }
+                <div class="form-group">
+                    <label asp-for="CompanyDescription" class="control-label"></label>
+                    <input asp-for="CompanyDescription" class="form-control" />
+                    <span asp-validation-for="CompanyDescription" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CompanyEmail" class="control-label"></label>
+                    <input asp-for="CompanyEmail" class="form-control" />
+                    <span asp-validation-for="CompanyEmail" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Industries:</label>
+                    @Html.ListBox("SelectedIndustries", (MultiSelectList)ViewBag.AllIndustries, new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+
+</body>

@@ -1,0 +1,76 @@
+@model IEnumerable<sp23Team09FinalProject.Models.Company>
+
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<h1>Company</h1>
+
+<form asp-action="Index" asp-controller="Company" method="get">
+    <p class="form-group">
+        Search: <input name="SearchString" class="form-control" /><br />
+        <button type="submit" class="btn btn-primary">Search</button>
+        <a asp-action="DetailedSearch" class="btn btn-success">Detailed Search</a>
+        <a asp-action="Index" class="btn btn-danger">Show All</a>
+    </p>
+</form>
+
+<body>
+    @if (User.Identity.IsAuthenticated)
+        {
+        @if (User.IsInRole("CSO") || User.IsInRole("Recruiter"))
+            {
+            <p>
+                <a asp-action="Create">Create New</a>
+            </p>
+            }
+        }
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.CompanyName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.CompanyDescription)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.CompanyEmail)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CompanyName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CompanyDescription)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CompanyEmail)
+                            </td>
+                            <td>
+                                <a asp-action="Details" asp-route-id="@item.CompanyID">Details</a>
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    @if (User.IsInRole("CSO") || User.IsInRole("Recruiter"))
+                                    {
+                                        <Text>
+                                        | <a asp-action="Edit" asp-route-id="@item.CompanyID">Edit</a>
+
+                                        
+                                        </Text>
+                                    }
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </body>

@@ -1,0 +1,96 @@
+@model sp23Team09FinalProject.Models.Company
+
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+
+    <div>
+        <h4>Company</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.CompanyName)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.CompanyName)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.CompanyDescription)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.CompanyDescription)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.CompanyEmail)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.CompanyEmail)
+            </dd>
+        </dl>
+    </div>
+    <h5>Industries for this Company</h5>
+    <table class="table table-bordered">
+        <tr>
+            <th>Industry Name</th>
+        </tr>
+        @foreach (Industry industry in Model.Industrys)
+        {
+            <tr>
+                <td>@industry.IndustryName</td>
+            </tr>
+        }
+    </table>
+
+
+
+
+
+    <table class="table table-bordered">
+        <tr>
+            <th>Available Positions</th>
+            <th>Position Type</th>
+            <th>Location</th>
+            <th>Deadline</th>
+        </tr>
+        <tbody>
+            @foreach (Position position in Model.Positions)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => position.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => position.PositionType)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => position.Location)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => position.Deadline)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+
+
+
+
+    <div>
+        @if (User.Identity.IsAuthenticated)
+        {
+            @if (User.IsInRole("CSO") || User.IsInRole("Recruiter"))
+            {
+                <Text>
+                <a asp-action="Edit" asp-route-id="@Model?.CompanyID">Edit</a> |
+                </Text>
+            }
+        }
+        <a asp-action="Index">Back to List</a>
+    </div>
+</body>

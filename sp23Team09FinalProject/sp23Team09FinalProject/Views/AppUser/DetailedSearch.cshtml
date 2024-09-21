@@ -1,0 +1,49 @@
+﻿@model sp23Team09FinalProject.Models.SearchViewModel
+
+@{
+    ViewData["Title"] = "DetailedSearch";
+}
+
+<h1>DetailedSearch</h1>
+
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="DisplaySearchResult" method="get">
+            <div class="form-group">
+                <label asp-for="SearchName" class="control-label"></label>
+                <input asp-for="SearchName" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="SearchMajorID" class="control-label"></label>
+                @Html.DropDownListFor(model => model.SearchMajorID , (SelectList)ViewBag.DetailedAllMajors, new{@class = "form-control"})
+                <span asp-validation-for="SearchMajorID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SearchDate" class="control-label"></label>
+                <input asp-for="SearchDate" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="SearchType" class="control-label"></label>
+                <select asp-for="SearchType" asp-items="Html.GetEnumSelectList<PositionType>()" class="form-control">
+                    <option selected="selected" value="">All Types</option>
+                </select>
+                <span asp-validation-for="SearchType" class="text-danger"></span>
+            </div>
+            <div>
+                <label asp-for="SearchGPA" class="control-label"></label>
+                <input asp-for="SearchGPA" type="number" step="0.1" class="form-control" />
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Search</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="IndexStudent">Back to List</a>
+</div>
+
+

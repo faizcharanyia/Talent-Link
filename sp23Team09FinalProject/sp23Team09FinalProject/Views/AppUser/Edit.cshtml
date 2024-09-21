@@ -1,0 +1,127 @@
+@model sp23Team09FinalProject.Models.AppUser
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>AppUser</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="FirstName" class="control-label"></label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastName" class="control-label"></label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MiddleInitial" class="control-label"></label>
+                <input asp-for="MiddleInitial" class="form-control" />
+                <span asp-validation-for="MiddleInitial" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GPA" class="control-label"></label>
+                <input asp-for="GPA" class="form-control" />
+                <span asp-validation-for="GPA" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="City" class="control-label"></label>
+                <input asp-for="City" class="form-control" />
+                <span asp-validation-for="City" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Street" class="control-label"></label>
+                <input asp-for="Street" class="form-control" />
+                <span asp-validation-for="Street" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="State" class="control-label"></label>
+                <input asp-for="State" class="form-control" />
+                <span asp-validation-for="State" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Zip" class="control-label"></label>
+                <input asp-for="Zip" class="form-control" />
+                <span asp-validation-for="Zip" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="PositionType" class="control-label"></label>
+                @Html.DropDownList("PositionType", Html.GetEnumSelectList<PositionType>(),
+                                                                            new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label asp-for="BirthDate" class="control-label"></label>
+                <input asp-for="BirthDate" class="form-control" />
+                <span asp-validation-for="BirthDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GradDate" class="control-label"></label>
+                <input asp-for="GradDate" class="form-control" />
+                <span asp-validation-for="GradDate" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            @if (User.Identity.IsAuthenticated)
+            {
+                @if (User.IsInRole("CSO"))
+                {
+                    <div class="form-group">
+                        <label asp-for="Company" class="control-label"></label>
+                        @Html.DropDownList("SelectedCompanyID", (SelectList)ViewBag.AllCompanys, new { @class = "form-control" })
+                    </div>
+                }
+            }
+            @if (User.Identity.IsAuthenticated)
+                {
+                @if (User.IsInRole("Student") || User.IsInRole("CSO"))
+                    {
+                    <div class="form-group">
+                        <label asp-for="Major" class="control-label"></label>
+                        @Html.DropDownList("SelectedMajorID", (SelectList)ViewBag.AllMajors, new { @class = "form-control" })
+                    </div>
+                    }
+                }
+                    <div class="form-group">
+                        <label asp-for="PhoneNumber" class="control-label"></label>
+                        <input asp-for="PhoneNumber" class="form-control" />
+                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" value="Save" class="btn btn-primary" />
+                    </div>
+                </form>
+    </div>
+</div>
+
+<div>
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        @if (User.IsInRole("Recruiter") || User.IsInRole("CSO"))
+        {
+            <a asp-action="IndexStudent">Back to List</a>
+        }
+        else
+        {
+        <a asp-action="Index">Back to List</a>
+        }
+     }
+
+    
+</div>
+
